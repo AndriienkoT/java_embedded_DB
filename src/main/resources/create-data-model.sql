@@ -1,0 +1,33 @@
+CREATE TABLE stores (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    address VARCHAR(255) NOT NULL,
+    UNIQUE UQ_ADDRESS_1 (address),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE goods (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    store_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (store_id) REFERENCES stores (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE providers (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE goods_providers (
+    goods_id INT UNSIGNED NOT NULL,
+    provider_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (goods_id) REFERENCES goods (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (provider_id) REFERENCES providers (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
